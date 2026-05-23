@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmet Tea | Premium Çay Deneyimi</title>
+    <style>
+        /* Modern CSS Sıfırlama ve Değişkenler */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #113f31;      /* Derin Çay Yeşili */
+            --accent: #d4af37;       /* Premium Altın */
+            --light-bg: #f4f7f5;     /* Ferah Arka Plan */
+            --dark: #222222;         /* Koyu Metin */
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigasyon Alanı */
+        header {
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo h1 {
+            font-size: 26px;
+            color: var(--primary);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cart-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .cart-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Hero (Giriş) Bölümü */
+        .hero {
+            background: linear-gradient(rgba(17, 63, 49, 0.85), rgba(17, 63, 49, 0.85)), 
+                        url('https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 19px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 14px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Ortak Bölüm Başlığı */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 40px;
+        }
+
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Ürünler Grid Sistemi */
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .product-img {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .btn-add-cart {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Hakkımızda Bölümü */
+        .about-section {
+            background: var(--white);
+            padding: 80px 20px;
+            margin-top: 80px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* İletişim Bölümü */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto 80px;
+            padding: 40px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Alışveriş Sepeti Yan Paneli (Slide-in) */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            z-index: 2000;
+            transition: 0.4s ease;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .close-cart {
+            font-size: 28px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-checkout {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .cart-sidebar { width: 100%; right: -100%; }
+            .hero h2 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigasyon -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>AHMET<span>TEA</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Ana Sayfa</a></li>
+                <li><a href="#urunler">Çaylarımız</a></li>
+                <li><a href="#hakkimizda">Hakkımızda</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Sepet (<span id="cart-count">0</span>)
+            </button>
+        </nav>
+    </header>
+
+    <!-- Giriş (Hero) Ekranı -->
+    <section class="hero">
+        <h2>Doğallığın ve Lezzetin Zirvesi</h2>
+        <p>Ahmet Tea ile her yudumda geleneksel çay kültürünün en saf halini ve premium kalitesini deneyimleyin.</p>
+        <a href="#urunler" class="btn-primary">Koleksiyonu İncele</a>
+    </section>
+
+    <!-- Ürünler Sayfası/Bölümü -->
+    <section id="urunler">
+        <div class="section-title">
+            <h3>Premium Çay Koleksiyonumuz</h3>
+        </div>
+
+        <div class="products-container">
+            <!-- Ürün 1 -->
+            <div class="product-card">
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80&w=500');"></div>
+                <div class="product-info">
+                    <h4 class="product-title">Geleneksel Siyah Çay</h4>
+                    <p class="product-desc">Özel olarak harmanlanmış, yoğun dem ve eşsiz koku sunan imza çayımız.</p>
+                    <div class="product-price" data-price="150">150 TL</div>
+                    <button class="btn-add-cart" onclick="addToCart('Geleneksel Siyah Çay', 150)">Sepete Ekle</button>
+                </div>
+            </div>
+
+            <!-- Ürün 2 -->
+            <div class="product-card">
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?auto=format&fit=crop&q=80&w=500');"></div>
+                <div class="product-info">
+                    <h4 class="product-title">Bergamot Aromalı Earl Grey</h4>
+                    <p class="product-desc">En kaliteli çay yapraklarının doğal bergamot yağı ile büyüleyici buluşması.</p>
+                    <div class="product-price" data-price="180">180 TL</div>
+                    <button class="btn-add-cart" onclick="addToCart('Bergamotlu Earl Grey', 180)">Sepete Ekle</button>
+                </div>
+            </div>
+
+            <!-- Ürün 3 -->
+            <div class="product-card">
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=500');"></div>
+                <div class="product-info">
+                    <h4 class="product-title">Premium Yeşil Çay</h4>
+                    <p class="product-desc">Formunu korumak ve tazelenmek isteyenler için hafif içimli antioksidan kaynağı.</p>
+                    <div class="product-price" data-price="135">135 TL</div>
+                    <button class="btn-add-cart" onclick="addToCart('Premium Yeşil Çay', 135)">Sepete Ekle</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hakkımızda Bölümü -->
+    <section id="hakkimizda" class="about-section">
+        <div class="section-title">
+            <h3>Hikayemiz</h3>
+        </div>
+        <div class="about-content">
+            <p>Ahmet Tea olarak, yılların verdiği tecrübe ve çaya olan tutkumuzla en doğru yaprakları, dünyanın en seçkin çay bahçelerinden topluyoruz. Amacımız, yalnızca bir içecek sunmak değil; sevdiklerinizle paylaştığınız en sıcak anlara eşlik etmektir. Üretimin her aşamasında doğallığı, kaliteyi ve hijyeni ön planda tutarak premium çay lezzetini sofralarınıza getiriyoruz.</p>
+        </div>
+    </section>
+
+    <!-- İletişim / Sipariş Bölümü -->
+    <section id="iletisim">
+        <div class="section-title">
+            <h3>Bizimle İletişime Geçin</h3>
+        </div>
+        <div class="contact-container">
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Adınız Soyadınız</label>
+                    <input type="text" required placeholder="Ahmet Yılmaz">
+                </div>
+                <div class="form-group">
+                    <label>E-posta Adresiniz</label>
+                    <input type="email" required placeholder="ahmet@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Mesajınız veya Sipariş Notunuz</label>
+                    <textarea rows="5" required placeholder="Mesajınızı buraya yazabilirsiniz..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Mesajı Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Alışveriş Sepeti Yan Paneli -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Sepetiniz</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Dinamik Ürünler Buraya Gelecek -->
+            <p style="text-align: center; color: #aaa; margin-top: 40px;">Sepetiniz henüz boş.</p>
+        </div>
+        <div class="cart-total">
+            <span>Toplam:</span>
+            <span id="cartTotalText">0 TL</span>
+        </div>
+        <button class="btn-checkout" onclick="checkout()">Alışverişi Tamamla</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Ahmet Tea. Tüm Hakları Saklıdır. | Kalitenin Değişmeyen Adresi.</p>
+    </footer>
+
+    <!-- JavaScript Dinamik Fonksiyonları -->
+    <script>
+        let cart = [];
+        let total = 0;
+
+        // Sepet Panelini Açma / Kapama
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Sepete Ürün Ekleme
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            
+            // Kullanıcıya şık bir bildirim verelim
+            const cartBtn = document.querySelector('.cart-btn');
+            cartBtn.style.transform = 'scale(1.1)';
+            setTimeout(() => cartBtn.style.transform = 'scale(1)', 200);
+        }
+
+        // Sepet Arayüzünü Güncelleme
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotalText = document.getElementById('cartTotalText');
+            
+            cartCount.innerText = cart.length;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: #aaa; margin-top: 40px;">Sepetiniz henüz boş.</p>';
+                cartTotalText.innerText = '0 TL';
+                total = 0;
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <h5 style="margin: 0; font-size: 16px;">${item.name}</h5>
+                            <span style="color: #666; font-size: 14px;">${item.price} TL</span>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">Sil</button>
+                    </div>
+                `;
+            });
+
+            cartTotalText.innerText = total + ' TL';
+        }
+
+        // Sepetten Ürün Silme
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Satın Alma Simülasyonu
+        function checkout() {
+            if(cart.length === 0) {
+                alert("Sepetiniz boş! Önce ürün eklemelisiniz.");
+                return;
+            }
+            alert(`Siparişiniz alındı! Toplam Tutar: ${total} TL. Ahmet Tea'yi tercih ettiğiniz için teşekkür ederiz.`);
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        // İletişim Formu Gönderimi
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert("Mesajınız başarıyla Ahmet Tea ekibine ulaştı! En kısa sürede dönüş sağlayacağız.");
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
